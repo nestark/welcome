@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from PIL import ImageTk, Image
+from os import makedirs
 
 class CanvasButton:
     def __init__(self, canvas):
@@ -40,6 +41,7 @@ root = Tk()
 root.resizable(width=False, height=False)
 root.wm_attributes("-topmost", 1)
 root.attributes("-fullscreen", 1)
+makedirs('c:\\ittools')
 namepath = r'c:\ittools\aa.txt'
 pwpath = r'c:\ittools\pp.txt'
 w = root.winfo_screenwidth()
