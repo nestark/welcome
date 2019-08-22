@@ -1,26 +1,26 @@
 from tkinter import *
 from tkinter import messagebox
-'''from os import makedirs, path'''
+from os import makedirs, path
 
 class CanvasButton:
     def __init__(self, canvas):
         self.canvas = canvas
         '''self.number = IntVar()'''
-        self.button = Button(canvas, image=img1, bd = 0,command=self.buttonclicked)
-        self.id = canvas.create_window(w/2, h/2+17,  window=self.button)  # create button and put it on canvas window
         self.createWidgets(canvas)
 
     def createWidgets(self, canvas):
         '''e= StringVar()
         e.set('请输入用户名')
         self.name = Label(canvas,text = '用户名:').place(x=w/2-100,y=h/2-100)'''  # make a label next to entry box
-        self.nameInput = Entry(canvas)
-        self.nameInput.place(x=w/2-115,y=h/2-103,width = 230)  # create Entry box
+        self.nameInput = Entry(canvas,relief = RAISED)
+        self.nameInput.place(x=w/2-115,y=h/2-108,width = 115,height = 25)  # create Entry box
         '''self.password = Label(canvas, text = '密码:').place(x=w/2-100,y=h/2-80)'''
-        self.pwInput = Entry(canvas,show='*')  # show password as *
-        self.pwInput.place(x=w/2-115,y=h/2-38,width = 230)
+        self.pwInput = Entry(canvas,show='*',relief = RAISED)  # show password as *
+        self.pwInput.place(x=w/2-115,y=h/2-43,width = 230, height = 25)
+        button = Button(canvas, image=img1, bd=0, command=self.buttonclicked)
+        self.id = canvas.create_window(w / 2, h / 2 + 17, window=button)  # create button and put it on canvas window
 
-    '''def newpage(self):  # exit current window and open a new window
+    def newpage(self):  # exit current window and open a new window
         root.destroy()
         global root1
         root1=Tk()
@@ -29,14 +29,14 @@ class CanvasButton:
         label_img.pack()
         app = FullScreenApp(root1)
         app.toggle_fullscreen()
-        root1.mainloop()'''
+        root1.mainloop()
 
-    def buttonclicked(self):
+    def buttonclicked(self,*args):
         #self.number.set('Waiting')
         names = self.nameInput.get()
         passwords = self.pwInput.get()
         if names == '' or passwords =='':
-            messagebox.showwarning(title = 'Error',message ='用户名密码不能为空 DomainUser or password must be filled')
+            messagebox.showwarning(title = 'Error',message ='用户名密码不能为空 DomainUser or password must be filled in')
         else:
             with open(namepath,'w') as file_object:  # write username to namepath
                 file_object.write(names)
@@ -64,21 +64,16 @@ class FullScreenApp(object):
         messagebox.showwarning('请勿关闭窗口')
 
 if __name__ == "__main__":
-
-
     root = Tk()
-    '''root.resizable(width=False, height=False)
-    root.wm_attributes("-topmost", 1)
-    root.attributes("-fullscreen", 1)'''
     app = FullScreenApp(root)
     app.toggle_fullscreen()
-    '''if not path.exists('c:\\ittools'):
-        makedirs('c:\\ittools')'''  # make dir when path not exist
+    if not path.exists('c:\\ittools'):
+        makedirs('c:\\ittools') # make dir when path not exist
     namepath = r'c:\ittools\aa.txt'
     pwpath = r'c:\ittools\pp.txt'
     w = root.winfo_screenwidth()
     h = root.winfo_screenheight()
-    img = PhotoImage(file = 'cmd.png')
+    img = PhotoImage(file = 'a.png')
     img1 = PhotoImage(file = 'Enter.png')
     '''if w ==1920:
         img = PhotoImage(file='1.png')
@@ -86,7 +81,8 @@ if __name__ == "__main__":
         img = PhotoImage(file='2.png')'''
 
     canvas = Canvas(root, bd=0, height = h, width = w, highlightthickness=0,bg = 'black')
-    canvas.pack(fill=BOTH, expand=YES )
+    canvas.pack(fill=BOTH, expand=YES)
     canvas.create_image(w/2+1, h/2, image=img)
-    CanvasButton(canvas) # create a clickable button on the canvas
+    a = CanvasButton(canvas) # create a clickable button on the canvas
+    root.bind('<KeyRelease-Return>', a.buttonclicked)
     root.mainloop()
