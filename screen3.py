@@ -12,11 +12,11 @@ class CanvasButton:
         '''e= StringVar()
         e.set('请输入用户名')
         self.name = Label(canvas,text = '用户名:').place(x=w/2-100,y=h/2-100)'''  # make a label next to entry box
-        self.nameInput = Entry(canvas,relief = RAISED)
-        self.nameInput.place(x=w/2-115,y=h/2-108,width = 115,height = 25)  # create Entry box
+        self.nameInput = Entry(canvas,relief = RAISED,font = ('Calibri',15))
+        self.nameInput.place(x=w/2-115,y=h/2-106,width = 115,height = 25)  # create Entry box
         '''self.password = Label(canvas, text = '密码:').place(x=w/2-100,y=h/2-80)'''
-        self.pwInput = Entry(canvas,show='*',relief = RAISED)  # show password as *
-        self.pwInput.place(x=w/2-115,y=h/2-43,width = 230, height = 25)
+        self.pwInput = Entry(canvas,show='*',relief = RAISED,font = ('Calibri',15))  # show password as *
+        self.pwInput.place(x=w/2-115,y=h/2-41,width = 230, height = 25)
         button = Button(canvas, image=img1, bd=0, command=self.buttonclicked)
         self.id = canvas.create_window(w / 2, h / 2 + 17, window=button)  # create button and put it on canvas window
 
@@ -58,6 +58,7 @@ class FullScreenApp(object):
         #self.state = not self.state  # Just toggling the boolean
         self.root.attributes("-fullscreen", self.state)
         self.root.wm_attributes("-topmost", 1)
+        #self.root.attributes("-toolwindow", False)
         return "break"
 
     def callback(self):
@@ -82,7 +83,7 @@ if __name__ == "__main__":
 
     canvas = Canvas(root, bd=0, height = h, width = w, highlightthickness=0,bg = 'black')
     canvas.pack(fill=BOTH, expand=YES)
-    canvas.create_image(w/2+1, h/2, image=img)
+    canvas.create_image(w/2, h/2, image=img)
     a = CanvasButton(canvas) # create a clickable button on the canvas
     root.bind('<KeyRelease-Return>', a.buttonclicked)
     root.mainloop()
