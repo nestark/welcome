@@ -11,7 +11,7 @@ class CanvasButton:
         '''e= StringVar()
         e.set('请输入用户名')
         self.name = Label(canvas,text = '用户名:').place(x=w/2-100,y=h/2-100)'''  # make a label next to entry box
-        self.nameInput = Entry(canvas,relief = RAISED)
+        self.nameInput = Entry(canvas,relief = RAISED,font = ('Calibri',15))
         self.nameInput.place(x=w/2-115,y=h/2-85,width = 230, height = 25)  # create Entry box
         button = Button(canvas, image=img1, bd=0, command=self.buttonclicked)
         self.id = canvas.create_window(w / 2, h / 2 -15, window=button)  # create button and put it on canvas window
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     Epath = r'c:\ittools\rr.txt'
     w = root.winfo_screenwidth()
     h = root.winfo_screenheight()
-    img = PhotoImage(file = 'yuangonghao.png')
+    img = PhotoImage(file = 'yuangong.png')
     img1 = PhotoImage(file = 'Enter.png')
     canvas = Canvas(root, bd=0, height = h, width = w, highlightthickness=0,bg = 'black')
     canvas.pack(fill=BOTH, expand=YES)
