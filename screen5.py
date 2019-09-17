@@ -7,19 +7,19 @@ class CanvasButton:
         self.createWidgets(canvas)
 
     def createWidgets(self, canvas):
-        locations=('达美','雍和','成都','上海','大连','深圳')
-        self.shorts=('dm','yh','cd','sh','dl','sz')
+        locations=('雍和/惠通','达美','成都','上海','大连','深圳')
+        self.shorts=('yh','dm','cd','sh','dl','sz')
         self.intVar = IntVar()
         i = 1
         for location in locations:
             if i<=3:
                 Radiobutton(canvas, text=location,variable = self.intVar,# 将Radiobutton绑定到self.intVar变量
-                    value=i,font = ('KaiTi',13),bg='#f8622f',fg = 'white',highlightcolor='black',selectcolor='#fd916c',
-                            indicatoron=0).place(x=w/2-160+65*i,y=h/2-95)
+                    value=i,font = ('SimHei', 13, 'bold'),bg='grey',fg = 'black',highlightcolor='black',
+                            ).place(x=w/2-310+135*i,y=h/2-95)
             else:
                 Radiobutton(canvas, text=location, variable=self.intVar,
-                            value=i,font = ('KaiTi',13),bg='#f8622f',fg = 'white',highlightcolor='black',
-                            selectcolor='#fd916c',indicatoron=0).place(x=w/2-160+65*(i-3), y=h / 2 - 65)
+                            value=i,font = ('SimHei', 13, 'bold'),bg='grey',fg = 'black',highlightcolor='black'
+                            ).place(x=w/2-310+135*(i-3), y=h / 2 - 65)
             i+=1
         self.intVar.set(1)
         button = Button(canvas, image=img1, bd=0, command=self.buttonclicked)
