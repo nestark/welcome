@@ -5,7 +5,6 @@ import ctypes
 import win32api, win32gui
 from win32con import WM_INPUTLANGCHANGEREQUEST
 
-
 class CanvasButton:
     def __init__(self, canvas):
         self.canvas = canvas
@@ -18,17 +17,17 @@ class CanvasButton:
     def createWidgets(self, canvas):
         '''self.e= StringVar()'''
         '''self.name = Label(canvas,text = '用户名:').place(x=w/2-100,y=h/2-100)'''  # make a label next to entry box
-        self.nameInput = Entry(canvas, relief=RAISED, font=('Calibri', 13))
-        self.nameInput.place(x=w / 2 - 115, y=h / 2 - 106, width=115, height=25)  # create Entry box
+        self.nameInput = Entry(canvas, relief=FLAT, font=('Calibri', 13))
+        self.nameInput.place(x=w / 2 - 92, y=h / 2 - 76, width=123, height=20)  # create Entry box
+        self.nameInput.focus()
         '''self.password = Label(canvas, text = '密码:').place(x=w/2-100,y=h/2-80)'''
-        self.pwInput = Entry(canvas, show='*', relief=RAISED, font=('Calibri', 13))  # show password as *
-        self.pwInput.place(x=w / 2 - 115, y=h / 2 - 43, width=230, height=25)
+        self.pwInput = Entry(canvas, show='*', relief=FLAT, font=('Calibri', 13))  # show password as *
+        self.pwInput.place(x=w / 2 - 92, y=h / 2 + 15, width=180, height=20)
         button = Button(canvas, image=img1, bd=0, command=self.buttonclicked)
-        self.button1 = Button(canvas, image=img2, bd=0,bg='#b5b4b4',activebackground='#b5b4b4', relief=FLAT,command=self.buttonclicked1)
-        self.id = canvas.create_window(w / 2, h / 2 + 17, window=button)  # create button and put it on canvas window
-        self.id1 = canvas.create_window(w / 2 + 143, h / 2 - 30, window=self.button1)
-        self.Cap = Label(canvas,bg='#b5b4b4', fg='#f85d25', font=('SimHei', 9))  # create Capslock tips label
-
+        self.button1 = Button(canvas, image=img2, bd=0, bg='white', activebackground='white',command=self.buttonclicked1)
+        self.id = canvas.create_window(w / 2 + 8, h / 2 + 107, window=button)  # create button and put it on canvas window
+        self.id1 = canvas.create_window(w / 2 + 98, h / 2 + 25, window=self.button1)
+        self.Cap = Label(canvas,bg='WHITE', font=('SimHei', 9))  # create Capslock tips label
 
     def newpage(self):  # exit current window and open a new window
         root.destroy()
@@ -68,7 +67,7 @@ class CanvasButton:
     def capslockdetect(self, *args):
         Dll = ctypes.WinDLL("User32.dll")
         if Dll.GetKeyState(0x14) == 1:
-            self.Cap.place(x=w / 2 - 50, y=h / 2 - 15)
+            self.Cap.place(x=w / 2 - 40, y=h / 2 + 40)
             self.Cap.config(text='大写锁定已打开')
         elif Dll.GetKeyState(0x14) == 0:
             self.Cap.place_forget()  # hide tips when capslock off
@@ -99,23 +98,24 @@ class FullScreenApp(object):
 
 if __name__ == "__main__":
     root = Tk()
+    root.state("zoomed")
+    w = root.winfo_screenwidth()
+    h = root.winfo_screenheight()
     app = FullScreenApp(root)
     app.toggle_fullscreen()
     if not path.exists('c:\\ittools'):
         makedirs('c:\\ittools')  # make dir when path not exist
     namepath = r'c:\ittools\aa.txt'
     pwpath = r'c:\ittools\pp.txt'
-    w = root.winfo_screenwidth()
-    h = root.winfo_screenheight()
     img = PhotoImage(file='a.png')
-    img1 = PhotoImage(file='Enter.png')
-    img2 = PhotoImage(file='yanjing.png')
-    img3 = PhotoImage(file='jinzhiyanjing.png')
+    img1 = PhotoImage(file='denglu.png')
+    img2 = PhotoImage(file='eye.png')
+    img3 = PhotoImage(file='uneye.png')
     '''if w ==1920:
         img = PhotoImage(file='1.png')
     elif w == 1366:
         img = PhotoImage(file='2.png')'''
-    canvas = Canvas(root, bd=0, height=h, width=w, highlightthickness=0, bg='black')
+    canvas = Canvas(root, bd=0, height=h, width=w, highlightthickness=0, bg='#0a0a0c')
     canvas.pack(fill=BOTH, expand=YES)
     canvas.create_image(w / 2 + 1, h / 2, image=img)
     a = CanvasButton(canvas)  # create a clickable button on the canvas
