@@ -14,11 +14,11 @@ class CanvasButton:
         for location in locations:
             if i<=3:
                 Radiobutton(canvas, text=location,variable = self.intVar,# 将Radiobutton绑定到self.intVar变量
-                    value=i,font = ('SimHei', 13, 'bold'),bg='grey',fg = 'black',highlightcolor='black',
+                    value=i,font = ('SimHei', 13),bg='grey',fg = 'black',highlightcolor='black',
                             ).place(x=w/2-310+135*i,y=h/2-95)
             else:
                 Radiobutton(canvas, text=location, variable=self.intVar,
-                            value=i,font = ('SimHei', 13, 'bold'),bg='grey',fg = 'black',highlightcolor='black'
+                            value=i,font = ('SimHei', 13),bg='grey',fg = 'black',highlightcolor='black'
                             ).place(x=w/2-310+135*(i-3), y=h / 2 - 65)
             i+=1
         self.intVar.set(1)

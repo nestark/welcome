@@ -29,7 +29,6 @@ class CanvasButton:
 if __name__ == "__main__":
     root = Tk()
     app = FullScreenApp(root)
-    app.toggle_fullscreen()
     Epath = r'c:\ittools\rr.txt'
     w = root.winfo_screenwidth()
     h = root.winfo_screenheight()
