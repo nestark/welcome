@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
+import time
 
 class FullScreenApp(object):
     def __init__(self, master):
@@ -25,12 +26,21 @@ if __name__ == "__main__":
         photo = ImageTk.PhotoImage(image)
         label_img.config(image=photo)
         label_img.image = photo  # avoid garbage collection
-    img2 = Image.open('cmd1.png')
+    img2 = Image.open(r'loading.gif')
+    '''img2.seek(99)'''  # skip to the second frame
+    '''try:
+        while 1:
+            img2.seek(img2.tell() + 1)
+            print(img2.tell())
+            time.sleep(1)
+            # do something to img2
+    except EOFError:
+        pass  # end of sequence'''
     copy_of_image = img2.copy()
     photo = ImageTk.PhotoImage(img2)
     label_img = Label(root1, image=photo)
-    label_img.bind('<Configure>',resize_image)
-    label_img.pack(fill=BOTH, expand = YES)
+    label_img.bind('<Configure>', resize_image)
+    label_img.pack(fill=BOTH, expand=YES)
     app = FullScreenApp(root1)
-    app.toggle_fullscreen()
+    #app.toggle_fullscreen()
     root1.mainloop()

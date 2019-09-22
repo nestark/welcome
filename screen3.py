@@ -17,7 +17,7 @@ class CanvasButton:
 
     def createWidgets(self, canvas):
         self.e= StringVar()
-        self.e.set('example@vipkid.com.cn')
+        self.e.set('例如：chensi3')
         '''self.name = Label(canvas,text = '用户名:').place(x=w/2-100,y=h/2-100)'''  # make a label next to entry box
         self.nameInput = Entry(canvas, textvariable=self.e, relief=FLAT, font=('Calibri', 13))
         self.nameInput.place(x=w / 2 - 92, y=h / 2 - 76, width=123, height=20)  # create Entry box
