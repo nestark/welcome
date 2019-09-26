@@ -14,15 +14,16 @@ class CanvasButton:
         self.capslockdetect()
         self.Hide = 1  # Flag for pwInput status
         self.change_Input()
+        self.option = StringVar()  # option String for newpage button
 
     def createWidgets(self, canvas):
-        self.e= StringVar()
-        self.e.set('例如：chensi3')
+        self.e = StringVar()
+        '''self.e.set('Enter your username')'''
         '''self.name = Label(canvas,text = '用户名:').place(x=w/2-100,y=h/2-100)'''  # make a label next to entry box
-        self.nameInput = Entry(canvas, textvariable=self.e, relief=FLAT, font=('Calibri', 13))
-        self.nameInput.place(x=w / 2 - 92, y=h / 2 - 76, width=123, height=20)  # create Entry box
+        self.nameInput = Entry(canvas, textvariable=self.e, relief=FLAT, font=('SimHei', 12))
+        self.nameInput.place(x=w / 2 - 92, y=h / 2 - 76, width=180, height=20)  # create Entry box
         self.nameInput.bind('<Button-1>', self.clear_ent)
-        #self.nameInput.focus()
+        # self.nameInput.focus()
         '''self.password = Label(canvas, text = '密码:').place(x=w/2-100,y=h/2-80)'''
         self.pwInput = Entry(canvas, show='*', relief=FLAT, font=('Calibri', 13))  # show password as *
         self.pwInput.place(x=w / 2 - 92, y=h / 2 + 15, width=180, height=20)
@@ -34,14 +35,38 @@ class CanvasButton:
         self.id1 = canvas.create_window(w / 2 + 98, h / 2 + 25, window=self.button1)
         self.Cap = Label(canvas, bg='WHITE', font=('SimHei', 9))  # create Capslock tips label
         self.popup_menu = Menu(canvas, tearoff=0)
-        self.popup_menu.add_command(label='退出', command=self.newpage)
+        self.popup_menu.add_command(label='管理模式', command=self.admin)  # popup menu options
         self.popup_menu.add_command(label='关机', command=self.power_off)
+        self.popup_menu.add_command(label='不加域', command=self.nodomain)
 
     def clear_ent(self, canvas):
         self.nameInput.delete(0, END)  # Clear text in Entry box
         return
 
+    def nodomain(self):
+        self.option.set('start c:\\ittools\\no.bat')
+        self.newpage()
+
+    def admin(self):
+        self.option.set('start explorer.exe')
+        self.newpage()
+
     def newpage(self):  # exit current window and open a new window
+        def verification():
+            password1 = '123456'
+            b = password_entry.get()  # get input password from password_entry
+            try:
+                if int(b) == int(password1):  # verify admin password
+                    messagebox.showinfo(title='提示', message='密码正确，请稍等')
+                    system('taskkill -IM cmd.exe -F')
+                    system(self.option.get())
+                    root.destroy()
+                else:
+                    messagebox.showerror(title='错误', message='密码错误，请核对.')
+            except ValueError:  # for passwords should have nothing but Int, set exception
+                messagebox.showwarning(title='Wrong Value!', message='密码只包含数字')
+            else:
+                pass
         global root1
         root1 = Toplevel(canvas)
         root1.geometry('150x80+885+465')
@@ -49,20 +74,23 @@ class CanvasButton:
         root1.title('验证密码')
         root1.wm_attributes("-topmost", 1)
         root1.attributes("-toolwindow", True)
-        #root1.focusmodel('active')
+        # root1.focusmodel('active')
         notice_label = Label(root1, text='请输入密码').grid()
-        self.password_entry = Entry(root1, show='*')
-        self.password_entry.grid()
-        self.password_entry.focus()
-        confirm_button = Button(root1, text='确定', command=self.verification).grid()
+        password_entry = Entry(root1, show='*')
+        password_entry.grid()
+        password_entry.focus()
+        confirm_button = Button(root1, text='确定', command=verification).grid()
         root1.mainloop()
 
     def buttonclicked(self, *args):
         # self.number.set('Waiting')
+        syb = '@'
         names = self.nameInput.get()
         passwords = self.pwInput.get()
         if names == '' or passwords == '':
             messagebox.showwarning(title='Error', message='用户名密码不能为空 DomainUser or password must be filled in')
+        elif syb in names:
+            messagebox.showwarning(title='Error', message='请输入域账号，不是邮箱')  # detect if user enter correct name not mailbox
         else:
             with open(namepath, 'w') as file_object:  # write username to namepath
                 file_object.write(names)
@@ -96,18 +124,6 @@ class CanvasButton:
     def popup(self, event):
         # 在指定位置显示菜单
         self.popup_menu.post(event.x_root, event.y_root)
-
-    def verification(self, *args):
-        password1 = '123456'
-        b = self.password_entry.get()  # get input password from password_entry
-        try:
-            if int(b) == int(password1):
-                messagebox.showinfo(title='Welcome', message='correct')
-                root.destroy()
-            else:
-                messagebox.showerror(title='Wrong inputs!', message='Please enter correct password.')
-        except ValueError:
-            messagebox.showwarning(title='Wrong Value!', message='Password only contains numbers.')
 
     def power_off(self):
         system('shutdown -s -t 3')  # power off machine
@@ -161,5 +177,5 @@ if __name__ == "__main__":
     a = CanvasButton(canvas)  # create a clickable button on the canvas
     root.bind('<KeyRelease-Caps_Lock>', a.capslockdetect)  # Detect if CapsLock on
     root.bind('<KeyRelease-Return>', a.buttonclicked)
-    root.bind('<Button-3>', a.popup) # add popup menu to mouse right button
+    root.bind('<Button-3>', a.popup)  # add popup menu to mouse right button
     root.mainloop()
