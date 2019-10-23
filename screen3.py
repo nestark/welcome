@@ -81,7 +81,9 @@ class CanvasButton:
                 pass
         global root1
         root1 = Toplevel(canvas)
-        root1.geometry('150x80+885+465')
+        w = root.winfo_screenwidth()
+        h = root.winfo_screenheight()
+        root1.geometry('150x80+{wide}+{height}'.format(wide=int(w/2-75),height=int(h/2)))
         root1.resizable(0, 0)
         root1.title('验证密码')
         root1.wm_attributes("-topmost", 1)

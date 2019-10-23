@@ -9,8 +9,8 @@ class CanvasButton:
         self.createWidgets(canvas)
 
     def createWidgets(self, canvas):
-        locations = ('雍和/惠通', '达美', '成都', '上海', '大连', '深圳','武汉')
-        self.shorts = ('yh', 'dm', 'cd', 'sh', 'dl', 'sz', 'wh')
+        locations = ('惠通', '达美', '成都', '上海', '大连', '深圳','武汉')
+        self.shorts = ('ht', 'dm', 'cd', 'sh', 'dl', 'sz', 'wh')
         self.intVar = IntVar()
         i = 1
         for location in locations:
