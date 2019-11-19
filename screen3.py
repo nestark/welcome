@@ -13,16 +13,16 @@ class CanvasButton:
         self.createWidgets(canvas)
         self.capslockdetect()
         self.Hide = 1  # Flag for pwInput status
-        self.change_Input()
         self.option = StringVar()  # option String for newpage button
         self.right_menu(canvas)
+        self.change_Input()
 
     def createWidgets(self, canvas):
         self.e = StringVar()
-        self.vcmd=(canvas.register(self.callback))
+        self.vcmd = (canvas.register(self.callback))
         '''self.e.set('Enter your username')'''
-        self.nameInput = Entry(canvas, textvariable=self.e, relief=FLAT, font=('SimHei', 12), validate='all',
-                             validatecommand=(self.vcmd, '%P'))
+        self.nameInput = Entry(canvas, textvariable=self.e, relief=FLAT, font=('Calibri', 12), validate='all',
+                               validatecommand=(self.vcmd, '%P'))
         self.nameInput.place(x=w / 2 - 92, y=h / 2 - 76, width=180, height=20)  # create Entry box
         # self.nameInput.focus()
         self.pwInput = Entry(canvas, show='*', relief=FLAT, font=('Calibri', 13), validate='all',
@@ -38,7 +38,7 @@ class CanvasButton:
         self.nameInput.bind('<Button-1>', self.clear_ent)
 
     def callback(self, P):
-        if str.isascii(P) or P == "":
+        if str.isascii(P):
             return True
         else:
             return False
@@ -57,6 +57,7 @@ class CanvasButton:
 
         def popup(event):
             popup_menu.post(event.x_root, event.y_root)  # 在指定位置显示菜单
+
         canvas.bind('<Button-3>', popup)  # add popup menu to mouse right button
         popup_menu = Menu(canvas, tearoff=0)
         popup_menu.add_command(label='管理模式', command=admin)  # popup menu options
@@ -79,19 +80,20 @@ class CanvasButton:
                 messagebox.showwarning(title='Wrong Value!', message='密码只包含英文')
             else:
                 pass
+
         global root1
         root1 = Toplevel(canvas)
         w = root.winfo_screenwidth()
         h = root.winfo_screenheight()
-        root1.geometry('150x80+{wide}+{height}'.format(wide=int(w/2-75),height=int(h/2)))
+        root1.geometry('150x80+{wide}+{height}'.format(wide=int(w / 2 - 75), height=int(h / 2)))
         root1.resizable(0, 0)
         root1.title('验证密码')
         root1.wm_attributes("-topmost", 1)
         root1.attributes("-toolwindow", True)
         # root1.focusmodel('active')
         notice_label = Label(root1, text='请输入密码').grid()
-        password_entry = Entry(root1, show='*',validate='all',
-                             validatecommand=(self.vcmd, '%P'))
+        password_entry = Entry(root1, show='*', validate='all',
+                               validatecommand=(self.vcmd, '%P'))
         password_entry.grid()
         password_entry.focus()
         confirm_button = Button(root1, text='确定', command=verification).grid()
@@ -137,7 +139,7 @@ class CanvasButton:
         hwnd = win32gui.GetForegroundWindow()
         win32api.SendMessage(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, 0x0409)
 
-    def clear_ent(self,*args):
+    def clear_ent(self, *args):
         self.nameInput.delete(0, END)
 
 
