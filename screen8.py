@@ -11,29 +11,25 @@ class CanvasButton:
     def createWidgets(self, canvas):
         self.intVar = IntVar()
         self.intVar0 = IntVar()
-        self.intVar1 = IntVar()
-        self.intVar2 = IntVar()
-        self.intVar3 = IntVar()
         self.intVar.set(1)
         self.intVar0.set(1)
-        check1 = Checkbutton(canvas, text='微软拼音（默认）', variable=self.intVar1, onvalue=1, offvalue=0,
-                             command=self.addtolist, indicatoron=0, font=('YouYuan',13), bd=0)
-        check2 = Checkbutton(canvas, text='搜狗拼音（含广告）', variable=self.intVar2, onvalue=1, offvalue=0,
-                             command=self.addtolist, indicatoron=0,font=('YouYuan',13), bd=0)
-        check3 = Checkbutton(canvas, text='搜狗五笔（含广告）', variable=self.intVar3, onvalue=1, offvalue=0,
-                             command=self.addtolist, indicatoron=0, font=('YouYuan',13), bd=0)
-        button1 = Radiobutton(canvas, text='不安装（默认）', variable=self.intVar, value=1,indicatoron=0, font=('YouYuan', 13),
-                              bd=0).place(x=w / 2 - 590, y=h / 2 - 20)
-        button2 = Radiobutton(canvas, text='安装', variable=self.intVar, value=2,indicatoron=0, font=('YouYuan', 13),
-                              bd=0).place(x=w / 2 - 410 , y=h / 2 - 20)
-        button3 = Radiobutton(canvas, text='不安装（默认）', variable=self.intVar0, value=1, indicatoron=0,
-                              font=('YouYuan', 13),
-                              bd=0).place(x=w / 2 - 590, y=h / 2 + 85)
-        button4 = Radiobutton(canvas, text='安装', variable=self.intVar0, value=2, indicatoron=0, font=('YouYuan', 13),
-                              bd=0).place(x=w / 2 - 410, y=h / 2 + 85)
-        select1=canvas.create_window(w/2 - 510, h / 2-105, window=check1)
-        select2 = canvas.create_window(w / 2 - 350, h / 2-105, window=check2)
-        select3 = canvas.create_window(w / 2 - 180, h / 2-105, window=check3)
+        check1 = Radiobutton(canvas, text='微软拼音（默认）', variable=self.intVar0, value=1,indicatoron=0,
+                             font=('YouYuan', 12), bd=0, bg='#b5b5b5', fg='white', selectcolor='#f85415',pady=2)
+        check2 = Radiobutton(canvas, text='搜狗拼音（含广告）', variable=self.intVar0, value=2,
+                             indicatoron=0, font=('YouYuan', 12), bd=0, fg='white', bg='#b5b5b5',
+                             selectcolor='#f85415',pady=2)
+        check3 = Radiobutton(canvas, text='搜狗五笔（含广告）', variable=self.intVar0, value=3,
+                             indicatoron=0, font=('YouYuan', 12), bd=0, fg='white', bg='#b5b5b5',
+                             selectcolor='#f85415',pady=2)
+        button1 = Radiobutton(canvas, text='不安装（默认）', variable=self.intVar, value=1, indicatoron=0,
+                              font=('YouYuan', 12),bg='#b5b5b5',pady=2,
+                              bd=0,fg='white', selectcolor='#f85415').place(x=w / 2 - 585, y=h / 2 - 22)
+        button2 = Radiobutton(canvas, text='安装', variable=self.intVar, value=2, indicatoron=0, font=('YouYuan', 12),
+                              bd=0,bg='#b5b5b5',pady=2,
+                              fg='white',selectcolor='#f85415').place(x=w / 2 - 415, y=h / 2 - 22)
+        select1 = canvas.create_window(w / 2 - 517, h / 2 - 110, window=check1)
+        select2 = canvas.create_window(w / 2 - 352, h / 2 - 110, window=check2)
+        select3 = canvas.create_window(w / 2 - 179, h / 2 - 110, window=check3)
         button = Button(canvas, image=img1, bd=0, command=self.buttonclicked)
         self.id = canvas.create_window(w / 2 + 40, h / 2 + 198,
                                        window=button)  # create button and put it on canvas window
@@ -55,7 +51,7 @@ if __name__ == "__main__":
     w = root.winfo_screenwidth()
     h = root.winfo_screenheight()
     Epath = r'c:\ittools\zz.txt'
-    img = PhotoImage(file='screen8.png')
+    img = PhotoImage(file='SW.png')
     img1 = PhotoImage(file='denglu.png')
     canvas = Canvas(root, bd=0, height=h, width=w, highlightthickness=0, bg='black')
     canvas.pack(fill=BOTH, expand=YES)
